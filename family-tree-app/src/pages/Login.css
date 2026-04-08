@@ -1,0 +1,104 @@
+.login-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Dark minimalism with mysterious gradient flow */
+  background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at bottom left, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+              var(--bg-primary);
+}
+
+.login-box {
+  width: 100%;
+  max-width: 480px;
+  padding: 3.5rem;
+  box-shadow: 0 30px 60px -12px rgba(0,0,0,1);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid rgba(255,255,255,0.15);
+  border-left: 1px solid rgba(255,255,255,0.15);
+  background: rgba(10, 10, 15, 0.85); /* Deep dark glass */
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(20px);
+}
+
+.login-header {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1.2rem;
+  color: var(--text-muted);
+}
+
+.input-with-icon input {
+  width: 100%;
+  padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  color: white;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+.input-with-icon input::placeholder {
+  color: rgba(255,255,255,0.15);
+}
+
+.input-with-icon input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  background: rgba(0,0,0,0.6);
+}
+
+.login-submit-btn {
+  width: 100%;
+  margin-top: 3rem;
+  padding: 1.4rem;
+  background: var(--accent-gradient);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.login-submit-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 30px rgba(99, 102, 241, 0.5);
+}
+
+.error-msg {
+  padding: 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  border-radius: var(--radius-sm);
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
