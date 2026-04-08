@@ -1,55 +1,53 @@
-# Dự án Xây dựng Ứng dụng Quản lý Gia phả (Family Tree Project)
+# TÀI LIỆU LƯU TRỮ: BIÊN NIÊN SỬ DỰ ÁN GIA PHẢ PRO (FULL-STACK)
 
-## 1. Giới thiệu dự án
-Dự án nhằm xây dựng một ứng dụng trình duyệt hoặc di động giúp các gia đình, dòng họ có thể dễ dàng lưu trữ, quản lý và hiển thị sơ đồ gia phả. Ứng dụng giúp kết nối các thành viên, gìn giữ nguồn cội và truyền thống từ đời này sang đời khác.
+*Đây là tập tin Nhớ Dữ Liệu (Bộ não ngoại vi). Tệp này tổng hợp tóm tắt mọi cấu trúc Kỹ thuật và Chiến tích code tính đến hiện hành, dùng để đọc lại trước khi bắt đầu Phiên làm việc Kế tiếp.*
 
-## 2. Mục tiêu dự án
-- **Lưu trữ bảo mật và lâu dài:** Số hóa thông tin gia phả, tránh mất mát do các yếu tố vật lý.
-- **Dễ dàng theo dõi và cập nhật:** Mọi thành viên (được cấp quyền) đều có thể đóng góp và theo dõi cấu trúc dòng họ.
-- **Gắn kết tình thân:** Nhắc nhở các ngày đặc biệt (ngày sinh, ngày giỗ, ngày họp mặt).
+## 1. Khái Quát Toàn Cục (System Overview)
+Bạn (Người quản lý Cường) và Tôi (Antigravity AI) đã phối hợp phát triển một trang Web quản trị Gia Phả dòng họ chuyên nghiệp từ một tờ giấy trắng (Zero) lên một Hệ Thống Toàn Diện Đa Lớp (Full-Stack).
+**Ngôn Ngữ Thiết Kế:** Premium Dark Mode, Bóng Kính (Glassmorphism), Sương mờ Violet/DarkBlue.
 
-## 3. Các tính năng cốt lõi (Core Features)
-
-### 3.1. Quản lý thành viên (Member Management)
-- Thêm, sửa, xóa thông tin thành viên (Họ tên, ngày sinh, ngày mất, quê quán, nghề nghiệp, tiểu sử).
-- Quản lý mối quan hệ: Cha/mẹ, vợ/chồng, con cái, anh chị em.
-- Kết xuất/nhập dữ liệu (Export/Import) từ file Excel hoặc CSV.
-
-### 3.2. Hiển thị Cây Gia phả (Interactive Family Tree)
-- Biểu diễn trực quan cây gia phả dưới dạng đồ thị (cây hoặc sơ đồ tổ chức).
-- Phóng to, thu nhỏ, cuộn để xem các thế hệ.
-- Click chuột vào một người để xem thông tin chi tiết.
-
-### 3.3. Quản lý sự kiện và Tưởng nhớ
-- Lịch dòng họ: Thông báo các ngày lễ, ngày giỗ, ngày sinh nhật.
-- Gửi email hoặc thông báo (Notification) nhắc nhở tới các thành viên.
-- Không gian lưu trữ hình ảnh, video kỷ niệm của gia đình.
-
-### 3.4. Phân quyền và Bảo mật
-- **Quản trị viên (Admin - Trưởng họ/Người lập cây):** Quyền cao nhất, có thể thêm/chỉnh sửa tất cả thông tin và quản lý người dùng.
-- **Thành viên đóng góp (Editor):** Có thể thêm và chỉnh sửa nhánh gia phả của riêng mình.
-- **Người xem (Viewer):** Chỉ xem thông tin gia phả, không được phép chỉnh sửa.
-
-## 4. Công nghệ đề xuất (Tech Stack Proposed)
-- **Frontend:** React.js / Next.js (hoặc Vue.js) kết hợp với các thư viện vẽ biểu đồ như `D3.js`, `React Flow` hoặc `Balkan FamilyTreeJS` để hiển thị cây gia phả.
-- **Backend:** Node.js (Express/NestJS) hoặc Python (Django/FastAPI) hoặc Java (Spring Boot) tùy thuộc vào độ quen thuộc của đội ngũ.
-- **Cơ sở dữ liệu:** 
-  - *Relational DB* (PostgreSQL/MySQL) để lưu trữ thông tin người dùng và quyền hạn.
-  - *Graph DB* (Neo4j) mạnh mẽ nhất trong việc thể hiện các mối quan hệ đa chiều giữa các thành viên. (MongoDB cũng là một giải pháp linh hoạt).
-- **Lưu trữ file:** AWS S3, Cloudinary hoặc Firebase Storage để lưu hình ảnh, tài liệu.
-
-## 5. Lộ trình phát triển (Roadmap)
-- **Giai đoạn 1 (MVP - Minimum Viable Product):** 
-  - Đăng nhập/Đăng ký.
-  - Quản lý thông tin thành viên (CRUD).
-  - Vẽ cây gia phả cơ bản từ danh sách thành viên.
-- **Giai đoạn 2 (Nhắc nhở & Kết nối):** 
-  - Thêm tính năng quản lý sự kiện và lịch (nhắc ngày giỗ, sinh nhật).
-  - Phân quyền người dùng chi tiết.
-- **Giai đoạn 3 (Nâng cao):** 
-  - Tích hợp Graph Database để truy vấn tốc độ cao cho các dòng họ lớn.
-  - Ứng dụng di động (Mobile App).
-  - Chia sẻ câu chuyện, album ảnh gia đình.
+### Tech-Stack Hiệp Đồng Tác Chiến:
+- **Tầng Hiển Thị (Frontend):** React (Vite), React Router (Chắn cửa ngõ). Thuật Toán Vector đệ quy vẽ sa bàn Cây kết hợp `react-zoom-pan-pinch`.
+- **Tầng Xử Lý (Backend):** Node.js thuần lõi, Express.js REST API.
+- **Tầng Ổ Cứng (Database):** CSDL Vật Lý siêu nén SQLite, Quản trị Schema thông qua ORM `Sequelize`.
 
 ---
-*Ghi chú: Đây là bản dự thảo đầu tiên. Dự án có thể được tùy chỉnh và thêm bớt các module dựa theo yêu cầu thực tế.*
+
+## 2. Các Đời Diễn Tiến Tính Năng Đã Khắc Chữ (Phases Completed)
+
+### 📌 GIAI ĐOẠN 1: Tạo Nền, Xây Cột & Hình Hài Web Tĩnh
+- Khởi Mở Dự án React Vite. Tạo hệ File Khung Xương.
+- Tạo màn hình Bảng Mạch Điều Khiển (`Dashboard`) & Bảng Điều Hướng Bên Hông (`Sidebar`).
+- Nhúng hiệu ứng Ánh Kính Trong Suốt (Glass Panel) bao phủ toàn bộ khối thẻ trang `Members` (Quản tri Danh sách Cột dọc).
+
+### 📌 GIAI ĐOẠN 2: Khai Mở Bát Quái Cây Hệ (Tree Logic)
+- **Hệ Vẽ Tự Động:** Đi Code Đệ Quy đắp từ cấu trúc Flat Array thành Phả hệ Hình Phễu lật ngược. Vẽ Dây Sóng Điện tóm gọn các Vị Trí Node thành 1 Cây Nhất Thống.
+- **Sa Bàn Vũ Trụ:** Cấy Map Mượt mà Zoom-vào Zoom-ra vô tận.
+- **Hệ Menu Lóe Sáng:** Code các nút "Chạm Chỉnh Sửa" được Thiết Kế Giấu tàng hình bên rìa Cụ Tổ, chỉ ló ra nếu đưa Chuột vào (Hover to action component).
+
+### 📌 GIAI ĐOẠN 3: Sóng Âm Phân Quyền (RBAC & AuthContext Lockdown)
+- Lắp Màn Chắn Bức Tường Điện Tư (`ProtectedRoute`) bảo vệ Lỗi Truy Cập Trái Phép.  
+- Chế tạo Màn Nhập Password Lơ Lửng (Minimalist Login Layout).  
+- **Tách Mọi Chế Độ Làm 2 Nửa Sinh Sát:** Bộ Mặc Định `ADMIN` (Siêu Quyền - Được xóa Node Cây, Xóa Thành Viên) VS `USER` (Quyền Phổ Thông).
+- Lắp ráp Thẻ "UserAdmin" Cực Phẩm chuyên trị Quản Lí Mật Phẩu Hệ Thống. (Với Thuật Toán Chống tự Sát - Khóa Ấn Không Cho Admin xóa Mệnh Xóa của Chính Mình).
+
+### 📌 GIAI ĐOẠN 4: Phát Hành Backend API Viễn Thông Máy Chủ
+- Khai Phá vùng đất Tối Mới (`d:\Project\family-tree-backend`).
+- Ráp Nối Cỗ máy Cơ Sở SQLite Tích Hợp ORM siêu Tốc.
+- Ép Schema Định Nghĩa Vành Đai cho `Members` và `Users`.
+- Giải phóng Tuyến Gọi Mạng (Network API Post/Put/Delete/Get).
+
+### 📌 GIAI ĐOẠN 5: Đáy Cáp Lục Địa Hợp Tu Thể (Full-Stack Merge Data Fetching)
+- Đập Mọi Bộ Nhớ Tạm của Giai Đoạn cũ ở Code React. Nêm Lò Điện Axios/Fetch Chĩa Cổng Gọi Đích tới API Port `5000`.
+- Chế Tạo Bộ Phận Bắn Trạc Tên Tự Động **Cascade Delete**: Khi xóa 1 Bộ rễ trên Web Đồ Họa Cây, Web sẽ tung Cáp Lốc quấn lấy Mọi Nhánh Con rồi ra Lệnh Báo Tử Đồng Lọt xuống Động Cơ Backend Server!
+
+---
+
+## 3. Kho Chứa Hiện Tại & Khởi Động Cho Đời Sau
+Toàn Mạch Thiết Kế đã được niêm phong vào Kho: **`https://github.com/cuongpv-hub/family-tree-pro`** (Khởi chạy bằng nhánh `main`).
+
+**Hướng Dẫn Phiên Sau Thức Dậy Rút Kiếm Code:**
+- **Bước 1:** Bật 1 Trạm Cmd tại `family-tree-backend` gõ `npm run dev` (Kéo Trạm Nguồn Cổng 5000).
+- **Bước 2:** Bật 1 Trạm Cmd tại `family-tree-app` gõ `npm run dev` (Kéo Lõi Đồ Họa Cổng 5173).
+
+Sẵn sàng đón nhận Ý Tưởng Bứt Phá Lịch Sử Mới (Module Lịch Sự Kiện) của bạn trong Đêm Hôm Sau! Đã Ngắt Điện Truyền Tin.
