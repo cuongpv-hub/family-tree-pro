@@ -6,13 +6,20 @@ const nodemailer = require('nodemailer');
  * Cấu hình: tạo file .env với GMAIL_USER và GMAIL_APP_PASSWORD
  */
 const sendTestReport = async ({ toEmail, testResults, totalPass, totalFail, totalBug }) => {
+  // Guard: kiểm tra credentials trước khi tạo transporter
+  const gmailUser = process.env.GMAIL_USER || 'phamcuong219@gmail.com';
+  const gmailPass = process.env.GMAIL_APP_PASSWORD;
+  if (!gmailPass) {
+    throw new Error('[emailService] GMAIL_APP_PASSWORD chưa được cấu hình trong .env — không thể gửi email.');
+  }
+
   // Tạo transporter — dùng Gmail SMTP
   // Để hoạt động: bật "2-Step Verification" trên Gmail, sau đó tạo "App Password"
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.GMAIL_USER || 'phamcuong219@gmail.com',
-      pass: process.env.GMAIL_APP_PASSWORD || '', // App Password 16 ký tự từ Google Account
+      user: gmailUser,
+      pass: gmailPass,
     },
   });
 
