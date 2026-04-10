@@ -37,8 +37,14 @@ export default function Dashboard() {
 
     fetch('http://localhost:5000/api/funds')
       .then(res => res.json())
-      .then(data => setFundData({ totalFund: data.totalFund || 0, transactions: data.transactions || [] }))
-      .catch(err => console.error(err));
+      .then(data => setFundData({
+        totalFund: typeof data.totalFund === 'number' ? data.totalFund : 0,
+        transactions: Array.isArray(data.transactions) ? data.transactions : []
+      }))
+      .catch(err => {
+        console.error('[Dashboard] Không kết nối được API quỹ:', err);
+        setFundData({ totalFund: 0, transactions: [] });
+      });
   }, []);
 
   const totalMembers = members.length;
