@@ -42,7 +42,7 @@ export default function Tree() {
   };
 
   const handleDeleteNode = async (node) => {
-    if (window.confirm(`Lệnh Bài Phán Quyết Cục Bộ: Bạn có muốn XÓA vĩnh viễn [${node.fullName}] và Toàn Bộ Con cháu của nhánh này?`)) {
+    if (window.confirm(`Bạn có chắc chắn muốn XÓA vĩnh viễn [${node.fullName}] và toàn bộ nhánh cháu chắt của người này?`)) {
       
       const idsToDelete = [node.id];
       const killBranch = (id, list) => {
@@ -69,7 +69,7 @@ export default function Tree() {
   // Nơi Phép thuật API Xảy Ra Xuyên Lục Địa
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.fullName.trim()) return alert("Hội Nghị Gia Đình: Tên không thể trống!");
+    if (!formData.fullName.trim()) return alert("Tên không được để trống!");
 
     if (modal.mode === 'ADD') {
       const newNode = {
@@ -108,14 +108,14 @@ export default function Tree() {
                onTouchStart={(e) => e.stopPropagation()}
                onClick={(e) => e.stopPropagation()}>
             {isAdmin && (
-              <button className="action-btn delete" onClick={() => handleDeleteNode(node)} title="Hủy Diệt Căn Cơ (Admin Chỉ Lệnh)">
+              <button className="action-btn delete" onClick={() => handleDeleteNode(node)} title="Xóa toàn bộ nhánh (Admin)">
                 <Trash2 size={14}/>
               </button>
             )}
-            <button className="action-btn edit" onClick={() => openEditModal(node)} title="Cập nhật Khí Khái Sinh Giới">
+            <button className="action-btn edit" onClick={() => openEditModal(node)} title="Chỉnh sửa thông tin">
               <Edit3 size={15}/>
             </button>
-            <button className="action-btn add" onClick={() => openAddChildModal(node)} title="Phong Ấn Khai Sinh Bé Mới">
+            <button className="action-btn add" onClick={() => openAddChildModal(node)} title="Thêm con">
               <Plus size={16}/>
             </button>
           </div>
@@ -125,7 +125,7 @@ export default function Tree() {
           </div>
           <div className="node-name">{node.fullName}</div>
           <div className={`node-status ${node.status === 'Alive' ? 'status-alive' : 'status-deceased'}`}>
-             {node.status === 'Alive' ? 'Vẫn đang lưu Danh' : 'Đã tạc tượng Ngọc'}
+             {node.status === 'Alive' ? 'Đang sống' : 'Đã mất'}
           </div>
         </div>
         
@@ -153,14 +153,14 @@ export default function Tree() {
         {({ zoomIn, zoomOut, resetTransform }) => (
           <React.Fragment>
             <div className="tree-instruction">
-               <h3 className="text-gradient mb-2" style={{marginBottom: '1rem'}}>Sa Bàn Phả Hệ Thượng Thần</h3>
+               <h3 className="text-gradient mb-2" style={{marginBottom: '1rem'}}>Sơ đồ Lịch sử Gia phả</h3>
                <div className="flex gap-2">
-                 <button onClick={() => zoomIn()} className="btn-tool"><ZoomIn size={18}/> Dàn Tới Đầu Điểm</button>
-                 <button onClick={() => zoomOut()} className="btn-tool"><ZoomOut size={18}/> Thu Tiêu Cự Cảnh</button>
-                 <button onClick={() => resetTransform()} className="btn-tool"><Maximize size={18}/> Khóa Tâm Trục X,Y</button>
+                 <button onClick={() => zoomIn()} className="btn-tool"><ZoomIn size={18}/> Phóng to</button>
+                 <button onClick={() => zoomOut()} className="btn-tool"><ZoomOut size={18}/> Thu nhỏ</button>
+                 <button onClick={() => resetTransform()} className="btn-tool"><Maximize size={18}/> Khôi phục gốc</button>
                </div>
                <p className="text-muted" style={{marginTop: '1rem', fontSize: '0.85rem'}}>
-                 <Move size={14} style={{display:'inline', verticalAlign:'middle'}}/> Tín hiệu Điện Mạng (Axios REST) Đang Trực Thuộc... Đưa chuột ngang người trên Cây để Rút Lệnh Sửa Cây!
+                 <Move size={14} style={{display:'inline', verticalAlign:'middle'}}/> Rê chuột qua thành viên để hiện nút (Thêm / Sửa / Xóa)
                </p>
             </div>
 
@@ -183,41 +183,41 @@ export default function Tree() {
           <div className="modal-content glass-panel" onMouseDown={e => e.stopPropagation()}>
             <div className="modal-header">
               <h2 className="text-gradient" style={{fontSize: '1.4rem'}}>
-                {modal.mode === 'ADD' ? `[Hư Vô Thần Thoại] Nặn Khối Máu Tử Nối Nhánh Chân Cho: ${modal.targetNode.fullName}` : `[Bút Viết Sinh Tử] Đổi Mệnh Cách: ${modal.targetNode.fullName}`}
+                {modal.mode === 'ADD' ? `Thêm mới Người Mẫu Dòng dõi từ: ${modal.targetNode.fullName}` : `Cập nhật thông tin: ${modal.targetNode.fullName}`}
               </h2>
               <button className="btn-close" onClick={() => setModal({isOpen: false})}><X size={24}/></button>
             </div>
             
             <form className="tree-modal-form" onSubmit={handleSubmit}>
               <div className="form-group" style={{marginBottom: '1rem'}}>
-                <label style={{display:'block', marginBottom:'0.5rem', color: 'var(--text-secondary)'}}>Khắc Niệm Trọn Vẹn Tên</label>
+                <label style={{display:'block', marginBottom:'0.5rem', color: 'var(--text-secondary)'}}>Họ và tên</label>
                 <input type="text" name="fullName" value={formData.fullName} 
                        onChange={(e) => setFormData({...formData, fullName: e.target.value})} 
-                       className="form-control" autoFocus placeholder="Tên Đầy Đủ..."/>
+                       className="form-control" autoFocus placeholder="Ví dụ: Trần Văn A"/>
               </div>
 
               <div className="flex gap-4 w-full" style={{marginBottom: '1rem', display: 'flex', gap: '1rem'}}>
                 <div style={{flex: 1}}>
-                  <label style={{display:'block', marginBottom:'0.5rem', color: 'var(--text-secondary)'}}>Khảm Ấn Linh Tính</label>
+                  <label style={{display:'block', marginBottom:'0.5rem', color: 'var(--text-secondary)'}}>Giới tính</label>
                   <select name="gender" value={formData.gender} 
                           onChange={(e) => setFormData({...formData, gender: e.target.value})} className="form-control">
-                    <option value="Male">Ngạo Khí (Nam)</option>
-                    <option value="Female">Thủy Âm (Nữ)</option>
+                    <option value="Male">Nam</option>
+                    <option value="Female">Nữ</option>
                   </select>
                 </div>
                 <div style={{flex: 1}}>
-                  <label style={{display:'block', marginBottom:'0.5rem', color: 'var(--text-secondary)'}}>Thiên Trọng Kiếp</label>
+                  <label style={{display:'block', marginBottom:'0.5rem', color: 'var(--text-secondary)'}}>Tình trạng</label>
                   <select name="status" value={formData.status} 
                           onChange={(e) => setFormData({...formData, status: e.target.value})} className="form-control">
-                    <option value="Alive">Vẫn Bước Trong Ánh Sáng Thời Gian</option>
-                    <option value="Deceased">Đã Chạm Xuôi Vàng Nơi Nghĩa Chủng</option>
+                    <option value="Alive">Đang sống</option>
+                    <option value="Deceased">Đã mất</option>
                   </select>
                 </div>
               </div>
 
               <div className="tree-modal-actions">
-                <button type="button" className="cancel-btn" onClick={() => setModal({isOpen: false})}>Tẩy Khởi Lệnh Hủy</button>
-                <button type="submit" className="save-btn">{modal.mode === 'ADD' ? 'Khảm Node Ngay Lập Tức!' : 'Chỉnh Sửa Đường Viền Bản Đồ Tổ Tiên!'}</button>
+                <button type="button" className="cancel-btn" onClick={() => setModal({isOpen: false})}>Hủy bỏ</button>
+                <button type="submit" className="save-btn">{modal.mode === 'ADD' ? 'Thành lập Phả Hệ' : 'Lưu Thay đổi'}</button>
               </div>
             </form>
           </div>

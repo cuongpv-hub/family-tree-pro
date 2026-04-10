@@ -1,29 +1,32 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const User = sequelize.define('User', {
+const Event = sequelize.define('Event', {
   id: { 
     type: DataTypes.UUID, 
     defaultValue: DataTypes.UUIDV4, 
     primaryKey: true 
   },
-  username: { 
-    type: DataTypes.STRING, 
-    unique: true, 
-    allowNull: false 
-  },
-  password: { 
+  title: { 
     type: DataTypes.STRING, 
     allowNull: false 
   },
-  role: { 
+  type: { 
     type: DataTypes.STRING, 
-    defaultValue: 'USER' // Chắn 1 cửa rào phân quyền
+    defaultValue: 'General' 
   },
-  memberId: {
-    type: DataTypes.STRING,
-    allowNull: true
+  eventDate: { 
+    type: DataTypes.STRING, 
+    allowNull: false 
+  },
+  location: { 
+    type: DataTypes.STRING, 
+    allowNull: true 
+  },
+  description: { 
+    type: DataTypes.TEXT, 
+    allowNull: true 
   }
 });
 
-module.exports = User;
+module.exports = Event;

@@ -18,25 +18,25 @@ export default function Dashboard() {
   const maleMembers = members.filter(m => m.gender === 'Male').length;
 
   const stats = [
-    { title: 'Tổng Nhân Khẩu (Gốc)', value: totalMembers, icon: <Users size={24} color="#6366f1" />, trend: 'Ghi danh trên Server CSQL' },
-    { title: 'Số Mệnh Vẫn Tiếp Diễn', value: aliveMembers, icon: <Activity size={24} color="#10b981" />, trend: 'Đang Giao Tranh Sự Sống' },
-    { title: 'Tiền Nhân Nghĩa Trủng', value: deceasedMembers, icon: <Ghost size={24} color="#fca5a5" />, trend: 'Theo Thời Gian Cát Bụi' },
-    { title: 'Ngạo Khí (Nam Nhân)', value: maleMembers, icon: <UserPlus size={24} color="#69b4ff" />, trend: 'Trường Tồn Rường Cột' },
+    { title: 'Tổng Nhân Khẩu', value: totalMembers, icon: <Users size={24} color="#0071ff" />, trend: 'Trên hệ thống gốc' },
+    { title: 'Đang sinh sống', value: aliveMembers, icon: <Activity size={24} color="#16a34a" />, trend: 'Phát triển bền vững' },
+    { title: 'Đã khuất', value: deceasedMembers, icon: <Ghost size={24} color="#e11d48" />, trend: 'Lưu danh muôn đời' },
+    { title: 'Nam nhân', value: maleMembers, icon: <UserPlus size={24} color="#0071ff" />, trend: 'Con số tham khảo' },
   ];
 
   return (
     <div className="dashboard animate-fade-in">
       <header className="dashboard-header flex justify-between items-center">
         <div>
-          <h1 className="text-gradient">Tổng quan Dòng họ</h1>
-          <p className="text-muted">Chào mừng trưởng họ quay trở lại. Đây là tình hình hiện tại.</p>
+          <h1>Tổng Quan Gia Phả</h1>
+          <p className="text-muted" style={{fontSize: '0.95rem'}}>Cập nhật thông tin và tình hình dòng họ mới nhất.</p>
         </div>
         
-        <div className="user-profile flex items-center gap-4">
-          <div className="search-bar glass-panel flex items-center">
+        <div className="user-profile">
+          <div className="search-bar flex items-center">
              <input type="text" placeholder="Tìm kiếm thành viên..." />
           </div>
-          <div className="avatar glass-panel">
+          <div className="avatar">
             <Users size={20}/>
           </div>
         </div>
@@ -44,40 +44,66 @@ export default function Dashboard() {
 
       <div className="stats-grid">
         {stats.map((stat, i) => (
-          <div key={i} className="stat-card glass-panel flex-col gap-2">
+          <div key={i} className="stat-card flex-col">
             <div className="flex justify-between items-center w-full">
-              <h3 className="text-muted">{stat.title}</h3>
-              <div className="icon-wrapper glass-panel">
+              <h3>{stat.title}</h3>
+              <div className="icon-wrapper">
                 {stat.icon}
               </div>
             </div>
             <div className="stat-value">{stat.value}</div>
-            <div className="stat-trend text-gradient">{stat.trend}</div>
+            <div className="stat-trend">{stat.trend}</div>
           </div>
         ))}
       </div>
 
-      <div className="dashboard-content grid">
-        <div className="recent-activity glass-panel flex-col">
-          <h2 className="mb-4">Hoạt động tiếp theo</h2>
-          <div className="activity-list flex-col gap-4">
-             {members.length === 0 ? <p className="text-muted">Chưa có giao dịch Dữ Liệu Tín Hiện Nào Truyền Tới</p> : null}
-             {[...members].reverse().slice(0, 4).map((m, idx) => (
-               <div key={idx} className="activity-item flex items-center gap-4 animate-fade-in" style={{animationDelay: `${idx*0.1}s`}}>
-                 <div className="dot" style={{backgroundColor: idx % 2 === 0 ? '#10b981' : '#6366f1'}}></div>
-                 <div>Đã tải thành công Luồng Đứt Gãy Mã Máu của Nhánh: <b className="text-gradient hover:opacity-80 transition">{m.fullName}</b> từ File DB</div>
-                 <div className="text-muted ml-auto text-sm">System Fetch Async</div>
+      <div className="dashboard-content">
+        <div className="recent-activity">
+          <h2 className="section-title">Hoạt động gần đây</h2>
+          <div className="activity-list">
+             {members.length === 0 ? <p className="text-muted">Chưa có hoạt động nào được ghi nhận.</p> : null}
+             {[...members].reverse().slice(0, 5).map((m, idx) => (
+               <div key={idx} className="activity-item animate-fade-in" style={{animationDelay: `${idx*0.05}s`}}>
+                 <div className="dot" style={{backgroundColor: idx % 2 === 0 ? '#16a34a' : '#0071ff'}}></div>
+                 <div className="activity-text">Thành viên <strong>{m.fullName}</strong> vừa được thêm vào bản ghi gia phả.</div>
+                 <div className="activity-time">Mới đây</div>
                </div>
              ))}
           </div>
         </div>
 
-        <div className="upcoming-birthdays glass-panel flex-col items-center justify-center p-8">
-           <h2 className="mb-4 w-full">Sự kiện đến gần</h2>
-           <div className="empty-state text-muted flex-col items-center justify-center w-full h-full gap-4 pt-8">
-              <Calendar size={48} opacity={0.5} />
-              <p>Chưa có sự kiện nào gần đây</p>
+        <div className="upcoming-events">
+           <h2 className="section-title">Sự kiện sắp tới</h2>
+           <div className="events-list">
+             {/* Mock Event data for presentation since actual events are fetched in Events.jsx but we want it looking good here */}
+             <div className="event-item">
+                <div className="event-date-block">
+                  <span className="event-month">Thg 4</span>
+                  <span className="event-day">15</span>
+                </div>
+                <div className="event-details-col">
+                  <span className="event-name">Giỗ Tổ Mẫu</span>
+                  <span className="event-meta">Nhà Thờ Tổ Danh Hương</span>
+                </div>
+             </div>
+             
+             <div className="event-item">
+                <div className="event-date-block">
+                  <span className="event-month">Thg 5</span>
+                  <span className="event-day">02</span>
+                </div>
+                <div className="event-details-col">
+                  <span className="event-name">Họp mặt con cháu</span>
+                  <span className="event-meta">Quê Nội</span>
+                </div>
+             </div>
            </div>
+           {/* If no events: 
+             <div className="empty-state">
+                <Calendar size={48} opacity={0.3} color="var(--text-muted)" />
+                <p>Không có sự kiện sắp tới</p>
+             </div> 
+           */}
         </div>
       </div>
     </div>

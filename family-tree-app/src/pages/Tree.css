@@ -1,49 +1,50 @@
-/* Tree.css - Thuật toán vẽ Đườg nối CSS đệ quy */
 .tree-container {
+  height: calc(100vh - 40px);
   width: 100%;
-  height: calc(100vh - 4rem); 
-  border-radius: var(--radius-lg);
-  overflow: hidden;
   position: relative;
-  /* Lưới không gian 3 chiều không điểm cực (Space Grid) */
-  background-image: 
-    radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 60%),
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 100% 100%, 50px 50px, 50px 50px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
 }
 
 .tree-instruction {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
-  z-index: 999;
-  padding: 1.2rem;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: var(--radius-md);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  text-align: center;
+  background: var(--bg-secondary);
+  padding: 1.5rem 2.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 .btn-tool {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.05);
-  color: #fff;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
   padding: 0.6rem 1.2rem;
-  border-radius: 8px;
+  border-radius: var(--radius-pill);
   cursor: pointer;
   transition: all 0.2s;
   font-family: inherit;
-  font-weight: 500;
+  font-weight: 400;
 }
 .btn-tool:hover {
-  background: rgba(99, 102, 241, 0.3);
-  border-color: var(--accent-primary);
-  transform: translateY(-2px);
+  background: var(--border-color);
+}
+
+.tree-instruction h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0;
 }
 
 .tree-wrapper {
@@ -53,8 +54,10 @@
   padding: 5rem 10rem;
   min-width: 100%;
   min-height: 100%;
+  padding-top: 12rem;
 }
 
+/* Rendering CSS for nodes */
 .tree ul {
   padding-top: 30px;
   position: relative;
@@ -106,24 +109,21 @@
   transition: all 0.5s;
 }
 
-/* ---------------- NÚT THÀNH VIÊN CSS CẬP NHẬT ---------------- */
 .node-card {
   text-decoration: none;
   color: var(--text-primary);
   display: inline-block;
-  border-radius: var(--radius-sm);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  background: var(--bg-glass);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   min-width: 160px;
   padding: 1.2rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
   cursor: pointer;
-  position: relative; /* Trọng tâm thay đổi thiết kế */
+  position: relative;
 }
 
-/* Các Nút Menu Bấm ẩn (Thêm, Sửa) mọc ra ngoạn mục từ trong hư không */
 .node-actions {
   position: absolute;
   top: -15px;
@@ -131,160 +131,141 @@
   display: flex;
   gap: 0.4rem;
   opacity: 0;
-  transform: translateY(15px) scale(0.8);
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateY(5px);
+  transition: all 0.2s ease;
   pointer-events: none;
   z-index: 20;
 }
 
-/* CHỈ KHI RÊ CHUỘT THÌ THÀNH PHẦN NÀY LÓE SÁNG HIỆN 100%*/
 .node-card:hover .node-actions {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
   pointer-events: auto;
 }
 
 .node-card:hover {
-  transform: scale(1.1) translateY(-5px);
-  border-color: var(--accent-secondary);
-  box-shadow: 0 0 25px rgba(139, 92, 246, 0.6);
+  border-color: var(--accent-primary);
+  box-shadow: 0 8px 30px rgba(0, 113, 255, 0.15);
   z-index: 10;
 }
 
 .action-btn {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background: rgba(20, 20, 25, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   color: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-.action-btn.add:hover { background: #10b981; color: white; border-color: #10b981; transform: translateY(-2px); }
-.action-btn.edit:hover { background: #6366f1; color: white; border-color: #6366f1; transform: translateY(-2px); }
-.action-btn.delete:hover { background: #ef4444; color: white; border-color: #ef4444; transform: translateY(-2px); }
+.action-btn:hover { background: var(--bg-primary); }
+.action-btn.add:hover { background: var(--accent-primary); color: white; border-color: var(--accent-primary); }
+.action-btn.edit:hover { background: #111; color: white; border-color: #111; }
+.action-btn.delete:hover { background: #e11d48; color: white; border-color: #e11d48; }
 
 .node-avatar {
-  width: 55px;
-  height: 55px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: var(--accent-gradient);
+  background: var(--bg-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 0.8rem auto;
   font-weight: bold;
-  font-size: 1.5rem;
-  border: 2px solid rgba(255,255,255,0.7);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  font-size: 1.2rem;
+  border: 1px solid var(--border-color);
+  color: var(--accent-primary);
 }
 
 .node-name {
-  font-weight: 700;
-  font-size: 1.1rem;
+  font-weight: 500;
+  font-size: 1rem;
   margin-bottom: 0.4rem;
-  letter-spacing: 0.5px;
 }
 
 .node-status {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   padding: 0.3rem 0.6rem;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-pill);
+  background: var(--bg-primary);
   display: inline-block;
-  backdrop-filter: blur(5px);
   font-weight: 600;
 }
-.status-deceased { color: #fca5a5; }
-.status-alive { color: #6ee7b7; box-shadow: 0 0 5px rgba(110, 231, 183, 0.3); }
+.status-deceased { color: #e11d48; }
+.status-alive { color: #16a34a; }
 
-/* ---------------- GIAO DIỆN BẢNG ĐIỀU KHIỂN CĂN HỘ (MODAL) ---------------- */
-.modal-overlay {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.65);
-  backdrop-filter: blur(10px);
-  z-index: 10000;
+/* Modal styling matching Events */
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.modal-header h2 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: fadeIn 0.3s ease;
-}
-
-.modal-content {
-  width: 480px;
-  padding: 2.5rem;
-  background: #111116;
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(40px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.modal-header { 
-  margin-bottom: 1.5rem; 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: flex-start;
-}
-
-.btn-close { 
-  background: none; 
-  border: none; 
-  color: var(--text-muted); 
-  cursor: pointer; 
-  transition: 0.2s;
-}
-.btn-close:hover { 
-  color: #ef4444; 
-  transform: rotate(90deg);
-}
-
-.tree-modal-actions { 
-  display: flex; 
-  gap: 1rem; 
-  margin-top: 2.5rem; 
-}
-
-.cancel-btn { 
-  flex: 1; 
-  padding: 1.2rem; 
-  border-radius: var(--radius-sm); 
-  border: 1px solid rgba(255,255,255,0.15); 
-  background: transparent; 
-  color: var(--text-primary); 
-  cursor: pointer; 
+  border-radius: 50%;
   transition: all 0.2s;
+}
+
+.btn-close:hover {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.tree-modal-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.save-btn, .btn-save {
+  flex: 2;
+  background: var(--accent-primary);
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: var(--radius-pill);
   font-weight: 500;
-}
-.cancel-btn:hover {
-  background: rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.save-btn { 
-  flex: 1; 
-  padding: 1.2rem; 
-  border-radius: var(--radius-sm); 
-  border: none; 
-  background: var(--accent-gradient); 
-  color: white; 
-  cursor: pointer; 
-  font-weight: 600; 
+.cancel-btn, .btn-cancel {
+  flex: 1;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 0.8rem;
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+  cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
 }
-.save-btn:hover {
-  opacity: 0.95;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-glow);
-}
+
+.save-btn:hover, .btn-save:hover { background: var(--accent-secondary); }
+.cancel-btn:hover, .btn-cancel:hover { background: var(--border-color); }

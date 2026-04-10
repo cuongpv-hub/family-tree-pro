@@ -3,9 +3,18 @@ const cors = require('cors');
 const sequelize = require('./config/database');
 const userRoutes = require('./routes/userRoutes');
 const memberRoutes = require('./routes/memberRoutes');
+const eventRoutes = require('./routes/eventRoutes');
+const locationRoutes = require('./routes/locationRoutes');
+const galleryRoutes = require('./routes/galleryRoutes');
 
 const User = require('./models/User');
 const Member = require('./models/Member');
+const Event = require('./models/Event');
+const Province = require('./models/Province');
+const District = require('./models/District');
+const Ward = require('./models/Ward');
+const Gallery = require('./models/Gallery');
+const seedLocations = require('./config/seedLocations');
 
 const app = express();
 
@@ -16,13 +25,20 @@ app.use(express.json());
 // Điều Hướng Đường Bay Tín Hiệu Không Thép
 app.use('/api/users', userRoutes);
 app.use('/api/members', memberRoutes);
+app.use('/api/events', eventRoutes);
+app.use('/api/locations', locationRoutes);
+app.use('/api/gallery', galleryRoutes);
+
+// Public thư mục uploads để Front-end lấy ảnh
+const path = require('path');
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const PORT = 5000;
 
 // THUẬT TOÁN KÍCH HOẠT NHÂN THẦN SINH MỆNH
 const initDB = async () => {
   try {
-    await sequelize.sync(); // Lệnh Rút Gươm Tạo Lò Bát Quái Data
+    await sequelize.sync({ alter: true }); // Lệnh Rút Gươm Tạo Lò Bát Quái Data
     
     const adminCount = await User.count();
     if (adminCount === 0) {
@@ -46,6 +62,9 @@ const initDB = async () => {
       ]);
       console.log('[🚀] Đã Bơm Sinh Mệnh Khởi Nguồn Cho Cây Tổ Tiên');
     }
+
+    // Tiến hành gieo hạt giống dữ liệu Địa giới nếu chưa có
+    await seedLocations();
 
     app.listen(PORT, () => {
       console.log(`[🚀] BỘ CHỈ HUY BACKEND EXPRESS ĐÃ KHỞI MỞ TẠI PHÂN ĐÀ: http://localhost:${PORT}`);

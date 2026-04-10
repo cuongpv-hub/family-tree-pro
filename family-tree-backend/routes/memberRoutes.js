@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Member = require('../models/Member');
+const User = require('../models/User');
 
 router.get('/', async (req, res) => {
   const members = await Member.findAll();
@@ -9,7 +10,19 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const member = await Member.create(req.body);
+    const { accountDetails, ...memberData } = req.body;
+    const member = await Member.create(memberData);
+    
+    // Nếu có accountDetails, tạo User
+    if (accountDetails && accountDetails.username && accountDetails.password) {
+      await User.create({
+        username: accountDetails.username,
+        password: accountDetails.password,
+        role: accountDetails.role || 'USER',
+        memberId: member.id
+      });
+    }
+
     res.json({ success: true, member });
   } catch(err) {
     res.status(400).json({ success: false, message: err.message });
