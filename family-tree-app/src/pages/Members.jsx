@@ -6,9 +6,8 @@ import './Members.css';
 
 export default function Members() {
   const { isAdmin } = useAuth();
-  
-  // NẠP LINH KHÍ ĐỘNG: API JSON Data
   const [members, setMembers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetch('http://localhost:5000/api/members')
@@ -85,12 +84,19 @@ export default function Members() {
           </div>
           <div className="search-box">
              <Search size={18} color="var(--text-muted)"/>
-             <input type="text" placeholder="Tìm kiếm..." />
+             <input
+               type="text"
+               placeholder="Tìm kiếm theo tên..."
+               value={searchQuery}
+               onChange={e => setSearchQuery(e.target.value)}
+             />
           </div>
         </div>
         
         <div className="list-content custom-scroll">
-          {members.map(member => (
+          {members
+            .filter(m => m.fullName?.toLowerCase().includes(searchQuery.toLowerCase()))
+            .map(member => (
             <div key={member.id} className="member-item">
               <div className="member-avatar">
                 {member.avatar ? <img src={member.avatar} alt="avatar" style={{width:'100%', height:'100%', borderRadius:'50%', objectFit:'cover'}}/> : member.fullName.charAt(0)}

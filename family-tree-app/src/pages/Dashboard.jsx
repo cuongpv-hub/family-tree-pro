@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Users, UserPlus, Calendar, Activity, Ghost, Wallet, TrendingUp, TrendingDown, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import './Dashboard.css';
@@ -10,6 +10,19 @@ export default function Dashboard() {
   const [members, setMembers] = useState([]);
   const [events, setEvents] = useState([]);
   const [fundData, setFundData] = useState({ totalFund: 0, transactions: [] });
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchRef = useRef(null);
+
+  // Click outside → close dropdown
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
+        setSearchQuery('');
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     fetch('http://localhost:5000/api/members')
@@ -55,8 +68,34 @@ export default function Dashboard() {
           <h1>Tổng Quan Gia Phả</h1>
           <p className="text-muted" style={{fontSize: '0.9rem', marginTop: '0.25rem'}}>Cập nhật tình hình dòng Họ Phạm mới nhất.</p>
         </div>
-        <div className="header-search">
-          <input type="text" placeholder="🔍  Tìm kiếm thành viên..." className="search-input" />
+        <div className="header-search" ref={searchRef} style={{ position: 'relative' }}>
+          <input
+            type="text"
+            placeholder="🔍  Tìm kiếm thành viên..."
+            className="search-input"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+          />
+          {searchQuery && (
+            <div className="search-dropdown">
+              {members
+                .filter(m => m.fullName?.toLowerCase().includes(searchQuery.toLowerCase()))
+                .slice(0, 6)
+                .map(m => (
+                  <div key={m.id} className="search-result-item">
+                    <span className="search-avatar">{m.fullName?.charAt(0)}</span>
+                    <div>
+                      <div className="search-name">{m.fullName}</div>
+                      <div className="search-meta">{m.status === 'Alive' ? '🟢 Đang sống' : '⚫ Đã mất'} · {m.gender === 'Male' ? 'Nam' : 'Nữ'}</div>
+                    </div>
+                  </div>
+                ))
+              }
+              {members.filter(m => m.fullName?.toLowerCase().includes(searchQuery.toLowerCase())).length === 0 && (
+                <div className="search-result-item" style={{color:'var(--text-muted)'}}>Không tìm thấy thành viên nào</div>
+              )}
+            </div>
+          )}
         </div>
       </header>
 
