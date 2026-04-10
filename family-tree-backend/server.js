@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/database');
@@ -6,6 +7,8 @@ const memberRoutes = require('./routes/memberRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const locationRoutes = require('./routes/locationRoutes');
 const galleryRoutes = require('./routes/galleryRoutes');
+const fundRoutes = require('./routes/fundRoutes');
+const testReportRoutes = require('./routes/testReportRoutes');
 
 const User = require('./models/User');
 const Member = require('./models/Member');
@@ -14,6 +17,7 @@ const Province = require('./models/Province');
 const District = require('./models/District');
 const Ward = require('./models/Ward');
 const Gallery = require('./models/Gallery');
+const FundTransaction = require('./models/FundTransaction');
 const seedLocations = require('./config/seedLocations');
 
 const app = express();
@@ -28,6 +32,8 @@ app.use('/api/members', memberRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/locations', locationRoutes);
 app.use('/api/gallery', galleryRoutes);
+app.use('/api/funds', fundRoutes);
+app.use('/api/test-report', testReportRoutes);
 
 // Public thư mục uploads để Front-end lấy ảnh
 const path = require('path');
@@ -38,7 +44,25 @@ const PORT = 5000;
 // THUẬT TOÁN KÍCH HOẠT NHÂN THẦN SINH MỆNH
 const initDB = async () => {
   try {
-    await sequelize.sync({ alter: true }); // Lệnh Rút Gươm Tạo Lò Bát Quái Data
+    // Sync an toàn - chỉ tạo bảng mới, giữ nguyên dữ liệu cũ
+    await User.sync();
+    await Member.sync();
+    await Event.sync();
+    await Province.sync();
+    await District.sync();
+    await Ward.sync();
+    await Gallery.sync();
+    await FundTransaction.sync();
+
+    // Migration: thêm cột mới cho FundTransaction nếu chưa có
+    try {
+      await sequelize.query('ALTER TABLE FundTransactions ADD COLUMN category VARCHAR(255) DEFAULT NULL');
+      console.log('[🔧] Đã thêm cột category vào FundTransactions');
+    } catch (e) { /* Cột đã tồn tại */ }
+    try {
+      await sequelize.query('ALTER TABLE FundTransactions ADD COLUMN receiptImage VARCHAR(255) DEFAULT NULL');
+      console.log('[🔧] Đã thêm cột receiptImage vào FundTransactions');
+    } catch (e) { /* Cột đã tồn tại */ }
     
     const adminCount = await User.count();
     if (adminCount === 0) {

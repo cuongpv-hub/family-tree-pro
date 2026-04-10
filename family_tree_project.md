@@ -1,53 +1,122 @@
-# TÀI LIỆU LƯU TRỮ: BIÊN NIÊN SỬ DỰ ÁN GIA PHẢ PRO (FULL-STACK)
+# GLOBAL PROJECT CONTEXT: FAMILY TREE PRO (V0.1)
 
-*Đây là tập tin Nhớ Dữ Liệu (Bộ não ngoại vi). Tệp này tổng hợp tóm tắt mọi cấu trúc Kỹ thuật và Chiến tích code tính đến hiện hành, dùng để đọc lại trước khi bắt đầu Phiên làm việc Kế tiếp.*
-
-## 1. Khái Quát Toàn Cục (System Overview)
-Bạn (Người quản lý Cường) và Tôi (Antigravity AI) đã phối hợp phát triển một trang Web quản trị Gia Phả dòng họ chuyên nghiệp từ một tờ giấy trắng (Zero) lên một Hệ Thống Toàn Diện Đa Lớp (Full-Stack).
-**Ngôn Ngữ Thiết Kế:** Premium Dark Mode, Bóng Kính (Glassmorphism), Sương mờ Violet/DarkBlue.
-
-### Tech-Stack Hiệp Đồng Tác Chiến:
-- **Tầng Hiển Thị (Frontend):** React (Vite), React Router (Chắn cửa ngõ). Thuật Toán Vector đệ quy vẽ sa bàn Cây kết hợp `react-zoom-pan-pinch`.
-- **Tầng Xử Lý (Backend):** Node.js thuần lõi, Express.js REST API.
-- **Tầng Ổ Cứng (Database):** CSDL Vật Lý siêu nén SQLite, Quản trị Schema thông qua ORM `Sequelize`.
+Tài liệu này đóng vai trò là "Bộ nhớ dài hạn" và "Hệ thống quy định" chuẩn mực dùng để thiết lập Workflow cho toàn bộ các phiên làm việc của bạn và tệp trợ lý AI (như tôi) trong suốt quá trình phát triển dự án.
 
 ---
 
-## 2. Các Đời Diễn Tiến Tính Năng Đã Khắc Chữ (Phases Completed)
+## 1. 🧠 MEMORY (GHI NHỚ DỰ ÁN)
+*Nơi lưu trữ những thỏa thuận cốt lõi, tiến độ thực tế và kiến trúc tổng thể.*
 
-### 📌 GIAI ĐOẠN 1: Tạo Nền, Xây Cột & Hình Hài Web Tĩnh
-- Khởi Mở Dự án React Vite. Tạo hệ File Khung Xương.
-- Tạo màn hình Bảng Mạch Điều Khiển (`Dashboard`) & Bảng Điều Hướng Bên Hông (`Sidebar`).
-- Nhúng hiệu ứng Ánh Kính Trong Suốt (Glass Panel) bao phủ toàn bộ khối thẻ trang `Members` (Quản tri Danh sách Cột dọc).
-
-### 📌 GIAI ĐOẠN 2: Khai Mở Bát Quái Cây Hệ (Tree Logic)
-- **Hệ Vẽ Tự Động:** Đi Code Đệ Quy đắp từ cấu trúc Flat Array thành Phả hệ Hình Phễu lật ngược. Vẽ Dây Sóng Điện tóm gọn các Vị Trí Node thành 1 Cây Nhất Thống.
-- **Sa Bàn Vũ Trụ:** Cấy Map Mượt mà Zoom-vào Zoom-ra vô tận.
-- **Hệ Menu Lóe Sáng:** Code các nút "Chạm Chỉnh Sửa" được Thiết Kế Giấu tàng hình bên rìa Cụ Tổ, chỉ ló ra nếu đưa Chuột vào (Hover to action component).
-
-### 📌 GIAI ĐOẠN 3: Sóng Âm Phân Quyền (RBAC & AuthContext Lockdown)
-- Lắp Màn Chắn Bức Tường Điện Tư (`ProtectedRoute`) bảo vệ Lỗi Truy Cập Trái Phép.  
-- Chế tạo Màn Nhập Password Lơ Lửng (Minimalist Login Layout).  
-- **Tách Mọi Chế Độ Làm 2 Nửa Sinh Sát:** Bộ Mặc Định `ADMIN` (Siêu Quyền - Được xóa Node Cây, Xóa Thành Viên) VS `USER` (Quyền Phổ Thông).
-- Lắp ráp Thẻ "UserAdmin" Cực Phẩm chuyên trị Quản Lí Mật Phẩu Hệ Thống. (Với Thuật Toán Chống tự Sát - Khóa Ấn Không Cho Admin xóa Mệnh Xóa của Chính Mình).
-
-### 📌 GIAI ĐOẠN 4: Phát Hành Backend API Viễn Thông Máy Chủ
-- Khai Phá vùng đất Tối Mới (`d:\Project\family-tree-backend`).
-- Ráp Nối Cỗ máy Cơ Sở SQLite Tích Hợp ORM siêu Tốc.
-- Ép Schema Định Nghĩa Vành Đai cho `Members` và `Users`.
-- Giải phóng Tuyến Gọi Mạng (Network API Post/Put/Delete/Get).
-
-### 📌 GIAI ĐOẠN 5: Đáy Cáp Lục Địa Hợp Tu Thể (Full-Stack Merge Data Fetching)
-- Đập Mọi Bộ Nhớ Tạm của Giai Đoạn cũ ở Code React. Nêm Lò Điện Axios/Fetch Chĩa Cổng Gọi Đích tới API Port `5000`.
-- Chế Tạo Bộ Phận Bắn Trạc Tên Tự Động **Cascade Delete**: Khi xóa 1 Bộ rễ trên Web Đồ Họa Cây, Web sẽ tung Cáp Lốc quấn lấy Mọi Nhánh Con rồi ra Lệnh Báo Tử Đồng Lọt xuống Động Cơ Backend Server!
+**🔥 Hiện trạng (Status):** Đã hoàn thành Version 0.1 (đã push lên Github).
+- **Frontend Stack:** React (Vite - Port 5173), Vite, Lucide-react.
+- **Backend Stack:** Node.js, Express.js (Port 5000), Multer (Quản lý File).
+- **Database:** SQLite (quản lý qua ORM Sequelize). Cơ sở dữ liệu tự động `sync({alter: true})`.
+- **Hệ thống Đặc Quyền (Auth):** Tích hợp cứng 2 Role (`ADMIN` và `USER`). Member được gắn chặt với UserAccount qua trường `memberId`.
+- **Tính năng Cốt lõi (Đã có):** Dashboard, Quản lý Thành viên (có Tỉnh/Huyện/Xã module), Quản trị Cây Gia phả (zoom-pan-pinch), Lịch sự kiện, Quản trị Quyền/Tài khoản người dùng, Thư viện ảnh (có tùy chọn Riêng tư/Công khai).
 
 ---
 
-## 3. Kho Chứa Hiện Tại & Khởi Động Cho Đời Sau
-Toàn Mạch Thiết Kế đã được niêm phong vào Kho: **`https://github.com/cuongpv-hub/family-tree-pro`** (Khởi chạy bằng nhánh `main`).
+## 2. ⚡ RULES (LUẬT LỆ ÉP BUỘC)
+*Toàn bộ Agents (Trợ lý AI) BẮT BUỘC phải đọc và tuân theo mọi rule ở đây trước khi viết Code.*
 
-**Hướng Dẫn Phiên Sau Thức Dậy Rút Kiếm Code:**
-- **Bước 1:** Bật 1 Trạm Cmd tại `family-tree-backend` gõ `npm run dev` (Kéo Trạm Nguồn Cổng 5000).
-- **Bước 2:** Bật 1 Trạm Cmd tại `family-tree-app` gõ `npm run dev` (Kéo Lõi Đồ Họa Cổng 5173).
+1. **Rule về UI/UX (Aesthetics):** Tuyệt đối KHÔNG sử dụng Glassmorphism (Kính mờ) hay Gradient màu mè rườm rà. Dự án áp dụng **100% Minimalist Flat Design**. Nền xám/trắng nguyên khối, viền mỏng, bóng đổ siêu nhẹ, góc bo tròn dạng viên thuốc (Pill-shape `radius-pill`). Tông màu nhấn là Xanh Electric Blue (`#0071ff`).
+2. **Rule về Ngôn Ngữ:** Code luôn sử dụng tiếng Anh cho biến và hàm. Giao diện (UI text) hiển thị tới người dùng bắt buộc dùng tiếng Việt chuẩn mực, ngắn gọn, lịch sự. Tuyệt đối không dùng văn phong kiếm hiệp, tiểu thuyết.
+3. **Rule về CSS:** Tuyệt đối không xả CSS bừa bãi. Mọi form nhập liệu phải dùng chung class `.form-control`, cột chia lưới dùng `.form-group` đã được khai báo tập trung tại `index.css`. Code CSS bắt buộc dùng Variable (`var(--bg-primary)`, `var(--text-primary)`, v.v...).
+4. **Rule về Git:** Mọi commit lớn đều phải ghi chú chuẩn format: `feat: [tên tính năng]`, `fix: [lỗi]`, `docs: [tài liệu]`. Default Git config là `phamcuong219@gmail.com` / `phamcuong`.
 
-Sẵn sàng đón nhận Ý Tưởng Bứt Phá Lịch Sử Mới (Module Lịch Sự Kiện) của bạn trong Đêm Hôm Sau! Đã Ngắt Điện Truyền Tin.
+---
+
+## 3. 🤖 AGENTS (PHÂN CHIA VAI TRÒ WORKFLOW)
+*Hệ thống 3 Trợ lý AI nòng cốt. Bạn (Người dùng) sẽ gọi tên từng Agent để xử lý các khâu cụ thể, tạo thành một chuỗi sản xuất (Assembly Line) hoàn hảo.*
+
+1. **@UI_Designer (Kiến trúc sư đồ họa):** 
+   - Nhiệm vụ: Luôn túc trực nghe lệnh tinh chỉnh giao diện (Frontend CSS/React) từ bạn. 
+   - Nguyên tắc: Ép chuẩn tuyệt đối các nguyên tắc Flat Minimalist Design, spacing (khoảng cách), pixel-perfect đồ họa. KHÔNG được đụng chạm làm hỏng logic Backend hay API.
+   - Khi gọi lệnh: *"@UI_Designer, hãy ép dẹp lại cái thanh cuộn bên mép phải."*
+
+2. **@Business_Analyst (Chuyên gia Nghiệp vụ & Tham Vấn):** 
+   - Nhiệm vụ: Không viết source-code thực thi. Dùng để nghiên cứu logic các nghiệp vụ phức tạp của Hệ thống Gia phả (vd: Quản lý Quỹ đóng góp họ, Trình tự cúng giỗ, v.v).
+   - Nguyên tắc: Chủ động đào sâu, vẽ sơ đồ, phân tích Database Schema hoặc đặt các rủi ro hệ thống để tham vấn/hỏi ý kiến chốt hạ với bạn trước khi tiến hành bước tiếp theo.
+   - Khi gọi lệnh: *"@Business_Analyst, tôi muốn làm chức năng Quỹ Dòng Họ, cậu thấy nên thiết kế luồng quyên góp ra sao cho hợp lý và chống thất thoát?"*
+
+3. **@Dev_Implementer (Kỹ sư Thực thi Code):**
+   - Nhiệm vụ: Viết code thực địa cho Backend (Express, SQLite), Frontend (React Functions). 
+   - Nguyên tắc: Lấy kết luận/Kế hoạch (Implementation Plan) từ `@Business_Analyst` làm bản vẽ. Viết code an toàn, đảm bảo chạy ổn định, tự động sync DB và báo cáo kết quả rành mạch.
+   - Khi gọi lệnh: *"@Dev_Implementer, dựa trên chốt hạ của Analyst, hãy code cho tôi Model Controller Quỹ Dòng họ đi!"*
+
+4. **@Market_Researcher (Chuyên viên Nghiên cứu Thị trường):**
+   - Nhiệm vụ: Khảo sát các giải pháp tương tự hiện có trên thị trường, trích xuất Best Practices và các Pattern UX tốt nhất để làm tài liệu tham khảo cho cả `@Business_Analyst` và `@UI_Designer`.
+   - Nguyên tắc: Chỉ nghiên cứu, phân tích và tổng hợp. KHÔNG viết code hay quyết định thiết kế. Luôn tag kết quả cho `@Business_Analyst` và `@UI_Designer` để tiếp tục.
+   - Khi gọi lệnh: *"@Market_Researcher, hãy nghiỉn cứu các app quản lý quỹ phổ biến nhất và tổng hợp những tính năng mà người dùng hay dùng nhất."*
+
+5. **@Tester (Kiểm thử viên chất lượng):**
+   - Nhiệm vụ: Kiểm tra toàn bộ luồng tính năng sau khi `@Dev_Implementer` hoàn thành. Báo cáo lỗi rõ ràng (Bước tái hiện, Kết quả mong đợi, Kết quả thực tế). Đưa ra đánh giá pass/fail cho từng Acceptance Criteria đã định nghĩa trong `requirements/`.
+   - Nguyên tắc: Luôn kiểm thử theo đúng tài liệu Requirement. KHÔNG tự ý bỏ qua test case nào. Nếu phát hiện lỗi, tag người sửa là `@Dev_Implementer` hoặc `@UI_Designer`.
+   - Khi gọi lệnh: *"@Tester, hãy kiểm tra toàn bộ module Quỹ Dòng họ vừa implement xong."*
+
+---
+
+## 3b. 🔄 AGENT CO-WORK WORKFLOW (Quy trình phối hợp chuẩn)
+
+```
+┌────────────────────────────────────────────────────────────┐
+│  YEU CAU TU BAN (Owner)                                    │
+└───────────────┬────────────────────────────────────────────┘
+                 ↓
+         @Market_Researcher
+         (Nghiên cứu tương đương)
+                 ↓
+         @Business_Analyst
+         (Phân tích + viết Requirement vào requirements/)
+                 ↓
+     ┌───────────┤
+     ↓           ↓
+ @Dev_Implementer  @UI_Designer
+ (Backend/Logic)   (CSS/Layout)
+     └───────────┘
+                 ↓
+              @Tester
+     (Kiểm thử định kỳ theo Acceptance Criteria)
+                 ↓
+       ┌───────────────┐
+       │ Test Report  │
+       │ + Email to   │
+       │ Owner        │
+       └───────────────┘
+           FAIL? ↓ PASS? → Done ✅
+     @Dev/@UI_Designer fix ngay
+```
+
+**Quy tắc vàng:**
+- `@Tester` chạy sau mỗi lần `@Dev_Implementer` hoàn thành 1 module
+- Nếu có bug: Tag `@Dev_Implementer` sửa, sau đó `@Tester` verify lại ngay
+- Report gửi về **phamcuong219@gmail.com** sau mỗi chu kỳ test
+
+---
+
+## 4. 🧰 SKILLS (KỸ NĂNG & THAO TÁC TÁI SỬ DỤNG)
+*SOPs (Quy trình chuẩn) và các dòng lệnh copy-paste tiện lợi phục vụ dự án.*
+
+**Skill 1: Khởi động toàn cụm (Boot System)**
+Chạy song song 2 terminal:
+```bash
+# Terminal 1 (Backend)
+cd family-tree-backend
+npm run dev
+
+# Terminal 2 (Frontend)
+cd family-tree-app
+npm run dev
+```
+
+**Skill 2: Reset Cây Dữ liệu Địa lý (Seed Geography)**
+```bash
+# Nằm sẵn trong initDB của server.js. Cứ xóa file SQLite chay rồi khởi động lại Backend, hệ thống sẽ tự sinh mầm dữ liệu Tỉnh/Thành Việt Nam mới.
+```
+
+**Skill 3: Đẩy Code Nhanh (Quick Push)**
+```bash
+git add .
+git commit -m "feat: wip update"
+git push origin main
+```
