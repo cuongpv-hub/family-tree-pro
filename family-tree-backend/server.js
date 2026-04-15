@@ -63,6 +63,18 @@ const initDB = async () => {
       await sequelize.query('ALTER TABLE FundTransactions ADD COLUMN receiptImage VARCHAR(255) DEFAULT NULL');
       console.log('[🔧] Đã thêm cột receiptImage vào FundTransactions');
     } catch (e) { /* Cột đã tồn tại */ }
+
+    // Migration cho User: thêm memberId
+    try {
+      await sequelize.query('ALTER TABLE Users ADD COLUMN memberId VARCHAR(255) DEFAULT NULL');
+      console.log('[🔧] Đã thêm cột memberId vào Users');
+    } catch (e) { /* Cột đã tồn tại */ }
+
+    // Migration cho Member: thêm deathDate
+    try {
+      await sequelize.query('ALTER TABLE Members ADD COLUMN deathDate VARCHAR(255) DEFAULT NULL');
+      console.log('[🔧] Đã thêm cột deathDate vào Members');
+    } catch (e) { /* Cột đã tồn tại */ }
     
     const adminCount = await User.count();
     if (adminCount === 0) {

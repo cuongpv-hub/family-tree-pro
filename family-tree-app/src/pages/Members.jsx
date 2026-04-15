@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { UserPlus, Search, Trash2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { getLunarDateString, calculateAgeDifference } from '../utils/dateHelpers';
 import LocationSelect from '../components/LocationSelect';
 import './Members.css';
 
@@ -17,7 +18,7 @@ export default function Members() {
   }, []);
 
   const [formData, setFormData] = useState({
-    fullName: '', gender: 'Male', birthDate: '', status: 'Alive',
+    fullName: '', gender: 'Male', birthDate: '', deathDate: '', status: 'Alive',
     parentId: '', idCard: '', hometown: '', currentAddress: '', biography: '', avatar: ''
   });
   
@@ -26,6 +27,19 @@ export default function Members() {
 
   const handleAddMember = async (e) => {
     e.preventDefault();
+
+    // KIỂM TRA LOGIC HUYẾT THỐNG
+    if (formData.parentId && formData.birthDate) {
+      const parent = members.find(m => String(m.id) === String(formData.parentId));
+      if (parent && parent.birthDate) {
+        const diff = calculateAgeDifference(parent.birthDate, formData.birthDate);
+        if (diff !== null && diff < 15) {
+          alert(`[LỖI HUYẾT THỐNG] Khoảng cách tuổi giữa cha/mẹ và con là ${diff.toFixed(1)} năm. Khoảng cách an toàn phải trên 15 năm. Vui lòng kiểm tra lại!`);
+          return;
+        }
+      }
+    }
+
     const newMember = { ...formData, id: 'm_' + Date.now().toString() };
     
     // FETCH POST VÀO DATABASE BACKEND
@@ -55,7 +69,7 @@ export default function Members() {
     } catch(e) { alert("Lỗi hệ thống khi thêm thành viên"); }
 
     setFormData({
-      fullName: '', gender: 'Male', birthDate: '', status: 'Alive', 
+      fullName: '', gender: 'Male', birthDate: '', deathDate: '', status: 'Alive', 
       parentId: '', idCard: '', hometown: '', currentAddress: '', biography: '', avatar: ''
     });
     setCreateUser(false);
@@ -103,10 +117,13 @@ export default function Members() {
               </div>
               <div className="member-info flex-col">
                 <h4 style={{fontSize: '1.1rem'}}>{member.fullName}</h4>
-                <div className="flex gap-2 text-muted" style={{fontSize: '0.85rem', marginTop: '4px'}}>
+                <div className="flex gap-2 text-muted" style={{fontSize: '0.85rem', marginTop: '4px', flexWrap: 'wrap'}}>
                   <span style={{color: member.gender === 'Male' ? '#0071ff' : '#e11d48'}}>{member.gender === 'Male' ? 'Nam' : 'Nữ'}</span>
-                  <span>| {member.birthDate || 'Chưa rõ năm'}</span>
+                  <span>| {member.birthDate ? `${member.birthDate} ${getLunarDateString(member.birthDate)}` : 'Chưa rõ năm'}</span>
                   <span style={{color: member.status === 'Alive' ? '#16a34a' : '#dc2626'}}>| {member.status === 'Alive' ? 'Đang sống' : 'Đã khuất'}</span>
+                  {member.status === 'Deceased' && member.deathDate && (
+                    <span style={{display: 'inline-block', width: '100%', color: '#94a3b8', marginTop: '2px'}}>Mất: {member.deathDate} <span style={{color: '#64748b'}}>{getLunarDateString(member.deathDate)}</span></span>
+                  )}
                 </div>
                 <p className="text-muted" style={{fontSize: '0.8rem', marginTop: '4px'}}>
                    Quê gốc: {member.hometown || 'Chưa cập nhật'} | Chỗ ở: {member.currentAddress || 'Chưa cập nhật'}
@@ -150,6 +167,7 @@ export default function Members() {
             <div className="form-group">
               <label>Ngày Sinh</label>
               <input type="date" name="birthDate" value={formData.birthDate} onChange={(e) => setFormData({...formData, birthDate: e.target.value})} className="form-control" />
+              {formData.birthDate && <small style={{color: 'var(--accent-primary)', marginTop: '4px', display: 'block'}}>{getLunarDateString(formData.birthDate)}</small>}
             </div>
             <div className="form-group">
               <label>Sổ CCCD / CMND</label>
@@ -165,6 +183,13 @@ export default function Members() {
                 <option value="Deceased">Đã mất</option>
               </select>
             </div>
+            {formData.status === 'Deceased' && (
+              <div className="form-group">
+                <label>Ngày Mất</label>
+                <input type="date" name="deathDate" value={formData.deathDate} onChange={(e) => setFormData({...formData, deathDate: e.target.value})} className="form-control" />
+                {formData.deathDate && <small style={{color: 'var(--text-muted)', marginTop: '4px', display: 'block'}}>{getLunarDateString(formData.deathDate)}</small>}
+              </div>
+            )}
             <div className="form-group">
               <label>Giới tính</label>
               <select name="gender" value={formData.gender} onChange={(e) => setFormData({...formData, gender: e.target.value})} className="form-control">

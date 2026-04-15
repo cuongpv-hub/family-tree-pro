@@ -7,6 +7,7 @@ const Member = sequelize.define('Member', {
   fullName: { type: DataTypes.STRING, allowNull: false },
   gender: { type: DataTypes.STRING, defaultValue: 'Male' },
   birthDate: { type: DataTypes.STRING, allowNull: true },
+  deathDate: { type: DataTypes.STRING, allowNull: true },
   status: { type: DataTypes.STRING, defaultValue: 'Alive' },
   idCard: { type: DataTypes.STRING, allowNull: true },
   hometown: { type: DataTypes.STRING, allowNull: true },
