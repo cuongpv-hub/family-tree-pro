@@ -25,17 +25,17 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/members')
+    fetch(`${import.meta.env.VITE_API_URL}/api/members`)
       .then(res => res.json())
       .then(data => setMembers(data))
       .catch(err => console.error(err));
 
-    fetch('http://localhost:5000/api/events')
+    fetch(`${import.meta.env.VITE_API_URL}/api/events`)
       .then(res => res.json())
       .then(data => setEvents(data))
       .catch(err => console.error(err));
 
-    fetch('http://localhost:5000/api/funds')
+    fetch(`${import.meta.env.VITE_API_URL}/api/funds`)
       .then(res => res.json())
       .then(data => setFundData({
         totalFund: typeof data.totalFund === 'number' ? data.totalFund : 0,

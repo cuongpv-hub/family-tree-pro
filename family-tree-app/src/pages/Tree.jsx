@@ -11,7 +11,7 @@ export default function Tree() {
   const [treeNodes, setTreeNodes] = useState([]);
   
   useEffect(() => {
-    fetch('http://localhost:5000/api/members')
+    fetch(`${import.meta.env.VITE_API_URL}/api/members`)
       .then(r => r.json())
       .then(d => setTreeNodes(d))
       .catch(e => console.error(e));
@@ -78,7 +78,7 @@ export default function Tree() {
         parentId: modal.targetNode.id
       };
       // GỌI THẲNG XUỐNG DB
-      const r = await fetch('http://localhost:5000/api/members', {
+      const r = await fetch(`${import.meta.env.VITE_API_URL}/api/members`, {
          method: 'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(newNode)
       });
       const data = await r.json();

@@ -16,7 +16,7 @@ const Events = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/events');
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/events`);
       setEvents(response.data);
       setLoading(false);
     } catch (error) {
@@ -37,7 +37,7 @@ const Events = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/events', newEvent);
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/events`, newEvent);
       setShowModal(false);
       setNewEvent({ title: '', type: 'Đám Giỗ', eventDate: '', location: '', description: '' });
       fetchEvents();

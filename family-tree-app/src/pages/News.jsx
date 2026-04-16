@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { Trash2, MessageCircle, Clock, Save, Mic } from 'lucide-react';
 import './News.css';
 
-const API_URL = 'http://localhost:5000/api/posts';
+const API_URL = `${import.meta.env.VITE_API_URL}/api/posts`;
 
 const News = () => {
   const { user } = useAuth();

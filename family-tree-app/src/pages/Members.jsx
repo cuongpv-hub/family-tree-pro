@@ -11,7 +11,7 @@ export default function Members() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/members')
+    fetch(`${import.meta.env.VITE_API_URL}/api/members`)
       .then(res => res.json())
       .then(data => setMembers(data))
       .catch(e => console.error("Database Gãy Mạch", e));
@@ -49,7 +49,7 @@ export default function Members() {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/members', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/members`, {
          method: 'POST', 
          headers: {'Content-Type': 'application/json'},
          body: JSON.stringify(payload)

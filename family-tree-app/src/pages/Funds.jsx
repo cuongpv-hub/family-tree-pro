@@ -31,7 +31,7 @@ export default function Funds() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/funds');
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/funds`);
       setData(res.data);
       setLoading(false);
     } catch (e) { setLoading(false); }
@@ -67,7 +67,7 @@ export default function Funds() {
       fd.append('category', form.category);
       if (receiptFile) fd.append('receiptImage', receiptFile);
 
-      await axios.post('http://localhost:5000/api/funds', fd, { headers: { 'Content-Type': 'multipart/form-data' } });
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/funds`, fd, { headers: { 'Content-Type': 'multipart/form-data' } });
       setShowModal(false);
       fetchData();
     } catch (e) { alert('Lỗi lập phiếu!'); }

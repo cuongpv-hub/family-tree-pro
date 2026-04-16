@@ -59,7 +59,7 @@ export default function Gallery() {
 
     setUploading(true);
     try {
-      await axios.post('http://localhost:5000/api/gallery', formData, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/gallery`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       alert('Tải ảnh lên thành công!');

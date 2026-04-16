@@ -15,7 +15,7 @@ const LocationSelect = ({ label, value, onChange }) => {
   useEffect(() => {
     const fetchProvinces = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/locations/provinces');
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/locations/provinces`);
         setProvinces(res.data);
       } catch (error) {
         console.error('Lỗi tải Tỉnh/Thành', error);
