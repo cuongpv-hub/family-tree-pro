@@ -113,8 +113,8 @@ const initDB = async () => {
     // Tiến hành gieo hạt giống dữ liệu Địa giới nếu chưa có
     await seedLocations();
 
-    app.listen(PORT, () => {
-      console.log(`[🚀] BỘ CHỈ HUY BACKEND EXPRESS ĐÃ KHỞI MỞ TẠI PHÂN ĐÀ: http://localhost:${PORT}`);
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`[🚀] BỘ CHỈ HUY BACKEND EXPRESS ĐÃ KHỞI MỞ TẠI PHÂN ĐÀ: http://0.0.0.0:${PORT} (LAN Ready)`);
     });
   } catch (error) {
     console.error('Lỗi Sập Cấu Trúc Toàn Không Gian:', error);
