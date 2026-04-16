@@ -1,11 +1,27 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Users, Network, Calendar, LogOut, ShieldAlert, UserCog, Image, Wallet, Newspaper } from 'lucide-react';
+import { Home, Users, Network, Calendar, LogOut, ShieldAlert, UserCog, Image, Wallet, Newspaper, Type } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useEffect, useState } from 'react';
 import './Sidebar.css';
 
 export default function Sidebar() {
   const location = useLocation();
   const { user, logout, isAdmin } = useAuth();
+  const [fontSize, setFontSize] = useState('16px');
+
+  useEffect(() => {
+    const savedSize = localStorage.getItem('app-font-size');
+    if (savedSize) {
+      setFontSize(savedSize);
+      document.documentElement.style.setProperty('--base-font-size', savedSize);
+    }
+  }, []);
+
+  const handleFontSizeChange = (size) => {
+    setFontSize(size);
+    document.documentElement.style.setProperty('--base-font-size', size);
+    localStorage.setItem('app-font-size', size);
+  };
   
   const baseMenu = [
     { name: 'Tổng quan', path: '/', icon: <Home size={20} /> },
@@ -59,6 +75,16 @@ export default function Sidebar() {
           <span style={{fontSize:'0.75rem', padding:'2px 8px', background: isAdmin ? 'rgba(245, 158, 11, 0.1)' : 'rgba(99, 102, 241, 0.1)', color: isAdmin ? '#f59e0b' : '#8b5cf6', borderRadius:'12px', width:'max-content'}}>
             Vai trò: {user?.role}
           </span>
+        </div>
+
+        {/* Tùy chỉnh Cỡ Chữ (Khả năng tiếp cận) */}
+        <div style={{ display: 'flex', gap: '8px', marginBottom: '1rem', padding: '0.8rem', background: 'var(--bg-primary)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)', justifyContent: 'space-between', alignItems: 'center' }}>
+           <span style={{fontSize:'0.8rem', color:'var(--text-muted)', display: 'flex', alignItems:'center', gap:'4px'}}><Type size={16}/> Chữ:</span>
+           <div style={{ display: 'flex', gap: '4px' }}>
+             <button onClick={() => handleFontSizeChange('14px')} style={{ padding:'2px 8px', borderRadius:'4px', border:'1px solid var(--border-color)', background: fontSize === '14px' ? 'var(--text-color)' : 'transparent', color: fontSize === '14px' ? 'var(--bg-secondary)' : 'var(--text-color)', cursor:'pointer' }}>A-</button>
+             <button onClick={() => handleFontSizeChange('16px')} style={{ padding:'2px 8px', borderRadius:'4px', border:'1px solid var(--border-color)', background: fontSize === '16px' ? 'var(--text-color)' : 'transparent', color: fontSize === '16px' ? 'var(--bg-secondary)' : 'var(--text-color)', cursor:'pointer' }}>A</button>
+             <button onClick={() => handleFontSizeChange('20px')} style={{ padding:'2px 8px', borderRadius:'4px', border:'1px solid var(--border-color)', background: fontSize === '20px' ? 'var(--text-color)' : 'transparent', color: fontSize === '20px' ? 'var(--bg-secondary)' : 'var(--text-color)', cursor:'pointer', fontWeight:'bold' }}>A+</button>
+           </div>
         </div>
 
         {/* Nút Đăng xuất */}
