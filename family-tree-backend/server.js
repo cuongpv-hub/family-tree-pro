@@ -9,6 +9,7 @@ const locationRoutes = require('./routes/locationRoutes');
 const galleryRoutes = require('./routes/galleryRoutes');
 const fundRoutes = require('./routes/fundRoutes');
 const testReportRoutes = require('./routes/testReportRoutes');
+const postRoutes = require('./routes/postRoutes');
 
 const User = require('./models/User');
 const Member = require('./models/Member');
@@ -18,6 +19,8 @@ const District = require('./models/District');
 const Ward = require('./models/Ward');
 const Gallery = require('./models/Gallery');
 const FundTransaction = require('./models/FundTransaction');
+const Post = require('./models/Post');
+const Comment = require('./models/Comment');
 const seedLocations = require('./config/seedLocations');
 
 const app = express();
@@ -34,12 +37,17 @@ app.use('/api/locations', locationRoutes);
 app.use('/api/gallery', galleryRoutes);
 app.use('/api/funds', fundRoutes);
 app.use('/api/test-report', testReportRoutes);
+app.use('/api/posts', postRoutes);
 
 // Public thư mục uploads để Front-end lấy ảnh
 const path = require('path');
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const PORT = 5000;
+
+// THIẾT LẬP KẾT NỐI (ASSOCIATIONS)
+Post.hasMany(Comment, { as: 'comments', foreignKey: 'postId', onDelete: 'CASCADE' });
+Comment.belongsTo(Post, { foreignKey: 'postId' });
 
 // THUẬT TOÁN KÍCH HOẠT NHÂN THẦN SINH MỆNH
 const initDB = async () => {
@@ -51,8 +59,11 @@ const initDB = async () => {
     await Province.sync();
     await District.sync();
     await Ward.sync();
+    await Ward.sync();
     await Gallery.sync();
     await FundTransaction.sync();
+    await Post.sync();
+    await Comment.sync();
 
     // Migration: thêm cột mới cho FundTransaction nếu chưa có
     try {

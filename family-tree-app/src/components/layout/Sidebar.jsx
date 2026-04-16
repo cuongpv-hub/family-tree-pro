@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Users, Network, Calendar, LogOut, ShieldAlert, UserCog, Image, Wallet } from 'lucide-react';
+import { Home, Users, Network, Calendar, LogOut, ShieldAlert, UserCog, Image, Wallet, Newspaper } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import './Sidebar.css';
 
@@ -12,6 +12,7 @@ export default function Sidebar() {
     { name: 'Thành viên', path: '/members', icon: <Users size={20} /> },
     { name: 'Sơ đồ gia phả', path: '/tree', icon: <Network size={20} /> },
     { name: 'Thư viện ảnh', path: '/gallery', icon: <Image size={20} /> },
+    { name: 'Bảng tin', path: '/news', icon: <Newspaper size={20} /> },
     { name: 'Lịch sự kiện', path: '/events', icon: <Calendar size={20} /> },
     { name: 'Tài chính quỹ', path: '/funds', icon: <Wallet size={20} /> },
   ];

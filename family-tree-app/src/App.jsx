@@ -9,6 +9,7 @@ import UserAdmin from './pages/UserAdmin';
 import Events from './pages/Events';
 import Gallery from './pages/Gallery';
 import Funds from './pages/Funds';
+import News from './pages/News';
 import './App.css';
 
 // Tường Thành Lắp Ghép: Bảo Vệ Không Cho Kẻ Xâm Nhập Không Hợp Pháp Đi Lướt Dây Mạng
@@ -43,6 +44,7 @@ function App() {
           <Route path="/tree" element={<ProtectedRoute><Tree /></ProtectedRoute>} />
           <Route path="/gallery" element={<ProtectedRoute><Gallery /></ProtectedRoute>} />
           <Route path="/events" element={<ProtectedRoute><Events /></ProtectedRoute>} />
+          <Route path="/news" element={<ProtectedRoute><News /></ProtectedRoute>} />
           <Route path="/funds" element={<ProtectedRoute><Funds /></ProtectedRoute>} />
           <Route path="/admin-users" element={<ProtectedRoute><UserAdmin /></ProtectedRoute>} />
           
